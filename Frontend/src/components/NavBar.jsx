@@ -14,8 +14,6 @@ import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { NavLink } from "react-router-dom";
 
-const settings = ["Login", "Sign Up"];
-
 export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,10 +45,10 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{ backgroundColor: "#953d60" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ mr: 1 }} />
+          <AdbIcon sx={{ mr: 10 }} />
           <Typography
             variant="h6"
             noWrap

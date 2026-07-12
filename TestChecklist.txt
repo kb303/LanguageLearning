@@ -3,10 +3,11 @@ BACKEND
 - Create new user: DONE
 - login user: DONE
 - display all users: DONE (delete after deployment)
+- 
 
 FRONTEND 
 
-- Create new user
-- login user
+- Create new user: DONE
+- login user: DONE
 - NavBar with basic navigation: DONE
 - User Menu for login/register navigation: DONE

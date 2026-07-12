@@ -1,7 +1,3 @@
-// 1. Create user authentication
-//     a. //////////backend//////////////
-//     b. frontend
-
 // 2. make function in dbConnect to initially load data into db
 
 // 3. user to create, update and delete lists
@@ -16,7 +12,7 @@
 
 // 8. search dictionary option
 
-// 9. ///////////////Create frontend navigation (Router)///////////////////
+// 9. Create retrieval for random words on dictionary page on startup to show these words
 
 // AFTER DEVELOPMENT FINISHED:
 // 1. Delete displayUsers Route, Service and Controller methods

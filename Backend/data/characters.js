@@ -203,3 +203,5 @@ const CHARACTERS = [
     type: "vowel",
   },
 ];
+
+module.exports = { CHARACTERS };
