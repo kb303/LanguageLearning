@@ -17,3 +17,21 @@ const db = Mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 exports.Mongoose = Mongoose;
+
+/*const mongoose = require('mongoose');
+
+async function seedDatabase() {
+  const userCount = await mongoose.connection.db.collection('users').countDocuments();
+  
+  // Only insert if the collection is empty to prevent duplicates
+  if (userCount === 0) {
+    await mongoose.connection.db.collection('users').insertMany([
+      { username: "admin", password: "hashed_password", role: "admin" }
+    ]);
+    console.log("Initial admin data seeded successfully.");
+  }
+}
+
+mongoose.connect('mongodb://localhost:27017/myDatabase')
+  .then(() => seedDatabase());
+*/

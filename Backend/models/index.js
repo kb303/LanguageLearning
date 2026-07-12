@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
-  wordModel: require("./wordModel"),
-  characterModel: require("./characterModel"),
+  Word: require("./wordModel"),
+  Character: require("./characterModel"),
+  User: require("./userModel"),
 };

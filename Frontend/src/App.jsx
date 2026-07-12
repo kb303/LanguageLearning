@@ -1,9 +1,10 @@
 import { useState } from "react";
+import MainRoutes from "./routes/mainRoutes";
 
 function App() {
   return (
     <>
-      <h1>Welcome to the Korean Language Learning App!</h1>
+      <MainRoutes></MainRoutes>
     </>
   );
 }

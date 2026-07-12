@@ -1,0 +1,22 @@
+// 1. Create user authentication
+//     a. //////////backend//////////////
+//     b. frontend
+
+// 2. make function in dbConnect to initially load data into db
+
+// 3. user to create, update and delete lists
+
+// 4. user can add words and characters to lists
+
+// 5. have lists turn into study cards which flip
+
+// 6. dictation tests
+
+// 7. writing tests
+
+// 8. search dictionary option
+
+// 9. ///////////////Create frontend navigation (Router)///////////////////
+
+// AFTER DEVELOPMENT FINISHED:
+// 1. Delete displayUsers Route, Service and Controller methods
