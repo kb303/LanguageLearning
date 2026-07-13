@@ -10,9 +10,5 @@
 
 // 7. writing tests
 
-// 8. search dictionary option
-
-// 9. Create retrieval for random words on dictionary page on startup to show these words
-
 // AFTER DEVELOPMENT FINISHED:
 // 1. Delete displayUsers Route, Service and Controller methods

@@ -3,7 +3,7 @@ BACKEND
 - Create new user: DONE
 - login user: DONE
 - display all users: DONE (delete after deployment)
-- 
+- search words in dictionary: DONE
 
 FRONTEND 
 
@@ -11,3 +11,4 @@ FRONTEND
 - login user: DONE
 - NavBar with basic navigation: DONE
 - User Menu for login/register navigation: DONE
+- search words in dictionary: DONE

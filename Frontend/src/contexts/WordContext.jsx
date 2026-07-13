@@ -20,8 +20,22 @@ export default function WordProvider({ children }) {
     }
   };
 
+  const searchWord = async (searchTerm) => {
+    const url = `${apiBaseUrl}/api/word/search?term=${encodeURIComponent(
+      searchTerm,
+    )}`;
+    try {
+      const response = await axios.get(url);
+      const words = response.data ?? [];
+      return words;
+    } catch (error) {
+      console.error("Failed to search dictionary data", error);
+      return [];
+    }
+  };
+
   return (
-    <WordContext.Provider value={{ loadAllWords }}>
+    <WordContext.Provider value={{ loadAllWords, searchWord }}>
       {children}
     </WordContext.Provider>
   );

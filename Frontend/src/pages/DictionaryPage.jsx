@@ -14,7 +14,7 @@ import { WordContext } from "../contexts/WordContext";
 export default function DictionaryPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [words, setWords] = useState([]);
-  const { loadAllWords } = useContext(WordContext);
+  const { loadAllWords, searchWord } = useContext(WordContext);
 
   useEffect(() => {
     const fetchWords = async () => {
@@ -25,8 +25,9 @@ export default function DictionaryPage() {
     fetchWords();
   }, [loadAllWords]);
 
-  const handleSearch = () => {
-    console.log("Searching for:", searchQuery);
+  const handleSearch = async () => {
+    const results = await searchWord(searchQuery);
+    setWords(results);
   };
   return (
     <>
