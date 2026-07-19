@@ -2,17 +2,33 @@ import NavBar from "../components/NavBar";
 import { Box, Typography, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Star, BookOpen, Zap, Users, Brain, Award } from "lucide-react";
+import CTAButton from "../components/CTAButton";
+import { NavContext } from "../contexts/NavContext";
+import LoginModal from "../components/LoginModal";
+import RegisterModal from "../components/RegisterModal";
 
 export default function HomePage() {
+  const { setloginModalOpen, loginModalOpen } = useContext(NavContext);
+  const { registerModalOpen, setRegisterModalOpen } = useContext(NavContext);
+
+  const openLoginModal = (e) => {
+    setloginModalOpen(true);
+  };
+
+  const openRegisterModal = (e) => {
+    setRegisterModalOpen(true);
+  };
+  const closeModal = () => setloginModalOpen(false);
+
   const fadeUp = {
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
   };
-
+  //TODO: put this in backend and fetch it from there, rather than hardcoding it here. Also, make it dynamic based on user progress.
   const stats = [
     { value: "77M+", label: "Native speakers worldwide" },
     { value: "24", label: "Structured lessons" },
@@ -20,6 +36,7 @@ export default function HomePage() {
     { value: "Top 10", label: "Most studied languages" },
   ];
 
+  //TODO:put this in backend and fetch it from there, rather than hardcoding it here. Also, make it dynamic based on user progress.
   const steps = [
     {
       step: "01",
@@ -52,6 +69,7 @@ export default function HomePage() {
   return (
     <>
       <NavBar></NavBar>
+      {/*TODO: make it so that if user is logged in, it shows their name and a dropdown menu with options to go to profile, settings, and logout. */}
       <section className="relative bg-primary text-primary-foreground overflow-hidden min-h-[88vh] flex items-center">
         {/* Background pattern */}
         <div
@@ -82,17 +100,13 @@ export default function HomePage() {
               natural conversation. Structured lessons, vocabulary cards, and
               instant quizzes.
             </p>
-
-            <div className="flex items-center gap-6 text-sm text-white/50">
-              <span className="flex items-center gap-1.5">
-                <BookOpen className="w-4 h-4" /> 24 lessons
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Zap className="w-4 h-4" /> 5 quizzes
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Users className="w-4 h-4" /> 12,400+ learners
-              </span>
+            <div className="flex flex-wrap gap-3 mb-10">
+              <CTAButton
+                label="Login"
+                primary={false}
+                buttonClick={openLoginModal}
+              />
+              <CTAButton label="Sign Up" buttonClick={openRegisterModal} />
             </div>
           </motion.div>
 
@@ -103,6 +117,7 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="hidden md:grid grid-cols-4 gap-3"
           >
+            {/*TODO: make this be imported from db rather than hardcoded */}
             {[
               { char: "안", label: "an", note: "peace" },
               { char: "녕", label: "nyeong", note: "hello" },

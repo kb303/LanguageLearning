@@ -5,6 +5,10 @@ export const NavContext = createContext();
 export function NavProvider({ children }) {
   const [activeTab, setActiveTab] = useState("home");
 
+  const [loginModalOpen, setloginModalOpen] = useState(false);
+  const [registerModalOpen, setRegisterModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const navTabs = [
     { id: "home", label: "홈페이지 Home", link: "/" },
     { id: "hangul", label: "한글 Hangul", link: "/hangul" },
@@ -14,7 +18,19 @@ export function NavProvider({ children }) {
   ];
 
   return (
-    <NavContext.Provider value={{ activeTab, setActiveTab, navTabs }}>
+    <NavContext.Provider
+      value={{
+        activeTab,
+        setActiveTab,
+        navTabs,
+        setloginModalOpen,
+        loginModalOpen,
+        registerModalOpen,
+        setRegisterModalOpen,
+        dropdownOpen,
+        setDropdownOpen,
+      }}
+    >
       {children}
     </NavContext.Provider>
   );

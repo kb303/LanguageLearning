@@ -1,12 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import { User, ChevronDown } from "lucide-react";
+import { User, ChevronDown, LogIn, LogOut, UserPlus } from "lucide-react";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
+import { NavContext } from "../contexts/NavContext";
 
 export default function UserMenuIcon() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const {
+    setRegisterModalOpen,
+    setloginModalOpen,
+    setDropdownOpen,
+    dropdownOpen,
+  } = useContext(NavContext);
   const ref = useRef(null);
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
   const initials = user ? user.firstName[0] + user.lastName[0] : "";
 
   useEffect(() => {
@@ -42,6 +48,43 @@ export default function UserMenuIcon() {
             className={`w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
           />
         </button>
+        {dropdownOpen && (
+          <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-xl shadow-lg py-1.5 z-50">
+            {user ? (
+              <>
+                {/* <div className="px-4 py-2.5 border-b border-border">
+                  <p className="text-sm font-semibold text-foreground truncate">
+                    {user.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {user.email}
+                  </p>
+                </div> */}
+                <button
+                  onClick={logout}
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-destructive hover:bg-muted transition-colors"
+                >
+                  <LogOut className="w-4 h-4" /> Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setloginModalOpen(true)}
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                >
+                  <LogIn className="w-4 h-4 text-primary" /> Sign In
+                </button>
+                <button
+                  onClick={() => setRegisterModalOpen(true)}
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                >
+                  <UserPlus className="w-4 h-4 text-primary" /> Register
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

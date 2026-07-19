@@ -55,10 +55,6 @@ export default function NavBar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-accent/10 text-accent rounded-full px-3 py-1.5 text-xs font-semibold">
-            <Star className="w-3 h-3 fill-accent" />
-            <span>Users</span>
-          </div>
           <UserMenuIcon />
         </div>
       </div>

@@ -1,4 +1,4 @@
-// 2. make function in dbConnect to initially load data into db
+// 2. make README  to initially load data into db
 
 // 3. user to create, update and delete lists
 
@@ -9,6 +9,8 @@
 // 6. dictation tests
 
 // 7. writing tests
+
+//8. Put login button on Homepage in hero section
 
 // AFTER DEVELOPMENT FINISHED:
 // 1. Delete displayUsers Route, Service and Controller methods
