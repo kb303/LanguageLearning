@@ -1,8 +1,10 @@
 import { Card, CardContent, Divider, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PracticeContext } from "../contexts/PracticeContext";
+import "../styles/animation.css"; // Import the CSS file for animations
 
 export default function WordFlashCard({ word, translation }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const { isFlipped, setIsFlipped } = useContext(PracticeContext);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -10,30 +12,19 @@ export default function WordFlashCard({ word, translation }) {
 
   return (
     <>
-      <div
-        className={`flashcard ${isFlipped ? "flipped" : ""}`}
-        onClick={handleFlip}
-      >
-        <div className="flashcard-inner">
-          <Card sx={{ minWidth: 150 }}>
+      <div className="card-container" onClick={handleFlip}>
+        <div className={`card-inner ${isFlipped ? "is-flipped" : ""}`}>
+          <Card className="card-face card-front" sx={{ minWidth: 150 }}>
             <CardContent>
               <Typography variant="h5" component="div">
                 {word}
-              </Typography>
-              <Typography variant="body2" sx={{ paddingBottom: "10px" }}>
-                {translation}
               </Typography>
             </CardContent>
           </Card>
-        </div>
-        <div className="back">
-          <Card sx={{ minWidth: 150 }}>
+          <Card className="card-face card-back" sx={{ minWidth: 150 }}>
             <CardContent>
               <Typography variant="h5" component="div">
                 {translation}
-              </Typography>
-              <Typography variant="body2" sx={{ paddingBottom: "10px" }}>
-                {word}
               </Typography>
             </CardContent>
           </Card>

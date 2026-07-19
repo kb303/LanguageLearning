@@ -3,34 +3,35 @@ import { Box, Typography, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import WordFlashCard from "../components/WordFlashCard";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function PracticePage() {
   return (
     <>
       <NavBar></NavBar>
-      <Box
-        sx={{
-          width: "100%",
-          boxSizing: "border-box",
-          minHeight: "500px", // Big section height
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center", // Centers vertically
-          alignItems: "center", // Centers horizontally
-          backgroundColor: "#f0eff7", // Adjust to your theme
-          color: "#293380",
-          px: 3,
-        }}
-      >
-        <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
-          Practice
-        </Typography>
+      <Header
+        hangul="퀴즈"
+        english="Quiz"
+        description="Create flashcards to practice your vocabulary."
+      />
 
-        <Typography variant="h6" component="p" sx={{ mb: 4, opacity: 0.9 }}>
-          Create flashcards to practice your vocabulary.
-        </Typography>
-      </Box>
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
+        <div>
+          <h2 className="font-['Noto_Serif_KR'] text-3xl font-bold text-foreground mb-1">
+            내 단어장 — My Word Lists
+          </h2>
+          <p className="text-muted-foreground text-sm">
+            Quiz yourself on your word lists below.
+          </p>
+        </div>
+
+        {/* Word lists — top */}
+        {/* <section>
+        <WordLists onQuiz={(list) => setQuizList(list)} />
+      </section> */}
+      </div>
+      <Footer></Footer>
     </>
   );
 }

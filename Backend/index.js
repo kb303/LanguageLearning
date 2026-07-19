@@ -16,9 +16,11 @@ app.use(
 
 const userRoutes = require("./routes/userAuthRoutes");
 const wordRoutes = require("./routes/wordRoutes");
+const charRoutes = require("./routes/characterRoutes");
 
 app.use("/api/user", userRoutes);
 app.use("/api/word", wordRoutes);
+app.use("/api/char", charRoutes);
 
 app.get("/", (req, res) => {
   res.send("This is a test");

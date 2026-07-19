@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export default function UserProvider({ children }) {
+  const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
   const apiBaseUrl =
     import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
@@ -37,7 +39,9 @@ export default function UserProvider({ children }) {
     const { email, password } = userData;
 
     try {
-      const response = axios.post(url, { email, password });
+      const response = await axios.post(url, { email, password });
+      const user = response.data.user;
+      setUser(user);
       console.log("Status Code:", response.status);
       navigate("/");
     } catch (error) {
@@ -50,7 +54,7 @@ export default function UserProvider({ children }) {
     }
   };
   return (
-    <UserContext.Provider value={{ createUser, loginUser }}>
+    <UserContext.Provider value={{ createUser, loginUser, user, setUser }}>
       {children}
     </UserContext.Provider>
   );

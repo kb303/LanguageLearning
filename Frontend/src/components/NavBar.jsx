@@ -1,21 +1,14 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import { NavContext } from "../contexts/NavContext";
+import { useContext } from "react";
+import UserMenuIcon from "./UserMenuIcon";
 
 export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { activeTab, setActiveTab, navTabs } = useContext(NavContext);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -25,101 +18,50 @@ export default function NavBar() {
     setAnchorElUser(null);
   };
 
-  const normalLinkStyle = {};
-
-  const navLinkStyle = ({ isActive }) => ({
-    color: "white",
-    textDecoration: "none",
-    marginRight: "1rem",
-    fontFamily: "Roboto, sans-serif",
-    fontSize: "1rem",
-    fontWeight: isActive ? 700 : 400,
-  });
-
-  const userLinkStyle = {
-    textAlign: "center",
-    minWidth: 100,
-    fontSize: "large",
-    textDecoration: "none",
-    color: "black",
-  };
-
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "#953d60" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ mr: 10 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: "flex",
-              fontFamily: "Roboto, sans-serif",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Learn Korean
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: "flex" }}>
-            <NavLink to="/" style={navLinkStyle}>
-              Home
-            </NavLink>
-            <NavLink to="/dictionary" style={navLinkStyle}>
-              Dictionary
-            </NavLink>
-            <NavLink to="/grammar" style={navLinkStyle}>
-              Grammar
-            </NavLink>
-            <NavLink to="/vocabulary" style={navLinkStyle}>
-              Vocabulary
-            </NavLink>
-            <NavLink to="/practice" style={navLinkStyle}>
-              Practice
-            </NavLink>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleRoundedIcon
-                  fontSize="large"
-                  sx={{ color: "white" }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
+            <span className="font-['Noto_Serif_KR'] text-primary-foreground font-bold text-lg leading-none">
+              한
+            </span>
+          </div>
+          <div>
+            <div className="font-semibold text-foreground leading-tight text-sm">
+              한국어 배우기
+            </div>
+            <div className="text-xs text-muted-foreground leading-tight">
+              Learn Korean
+            </div>
+          </div>
+        </div>
+
+        <nav className="hidden md:flex items-center gap-1 bg-secondary rounded-full p-1">
+          {navTabs.map((tab) => (
+            <Link
+              key={tab.id}
+              to={tab.link}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                activeTab === tab.id
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              <MenuItem>
-                <NavLink to="/signin" style={userLinkStyle}>
-                  Login
-                </NavLink>
-              </MenuItem>
-              <MenuItem>
-                <NavLink to="/signup" style={userLinkStyle}>
-                  Register
-                </NavLink>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              {tab.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 bg-accent/10 text-accent rounded-full px-3 py-1.5 text-xs font-semibold">
+            <Star className="w-3 h-3 fill-accent" />
+            <span>Users</span>
+          </div>
+          <UserMenuIcon />
+        </div>
+      </div>
+    </header>
   );
 }
