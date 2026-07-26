@@ -35,10 +35,10 @@ const displayUsers = async () => {
 //login user
 const loginUser = async ({ email, password }) => {
   const user = await loginUserInDB(email, password);
-  const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
-  const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+  const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
   return { user, accessToken, refreshToken };

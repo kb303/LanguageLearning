@@ -2,10 +2,12 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { BookOpen, Zap, Mic, Star, Users } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Search, X } from "lucide-react";
 import Header from "../components/Header";
+import { WordContext } from "../contexts/WordContext";
+import WordFlashCard from "../components/WordFlashCard";
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -13,6 +15,17 @@ const fadeUp = {
 
 export default function VocabularyPage() {
   const [query, setQuery] = useState("");
+  const [filtered, setFiltered] = useState([]);
+
+  const { searchWord } = useContext(WordContext);
+
+  useEffect(() => {
+    const performSearch = async () => {
+      const results = await searchWord(query);
+      setFiltered(results);
+    };
+    performSearch();
+  }, [query, searchWord]);
 
   return (
     <>
@@ -55,7 +68,7 @@ export default function VocabularyPage() {
             </div>
           </div>
 
-          {/* {filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground text-sm">
               No words match{" "}
               <span className="font-medium text-foreground">"{query}"</span>.
@@ -65,17 +78,21 @@ export default function VocabularyPage() {
               <AnimatePresence>
                 {filtered.map((v) => (
                   <motion.div
-                    key={v.korean}
+                    key={v._id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <VocabFlipCard word={v} />
+                    <WordFlashCard
+                      word={v.word}
+                      translation={v.translation}
+                      wordId={v._id}
+                    />
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
-          )} */}
+          )}
         </div>
       </div>
       <Footer />

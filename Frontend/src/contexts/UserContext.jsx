@@ -16,13 +16,29 @@ export default function UserProvider({ children }) {
   const { setDropdownOpen } = useContext(NavContext);
 
   const navigate = useNavigate();
+  // In development, make direct requests to backend; in production use relative paths
   const apiBaseUrl =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+    import.meta.env.MODE === "production" ? "" : "http://localhost:3000";
 
   const getHeaders = () => {
     const token = localStorage.getItem("accessToken");
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
+
+  // Restore user from localStorage on mount
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const userData = localStorage.getItem("user");
+    if (token && userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error("Failed to restore user from storage", error);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+      }
+    }
+  }, []);
 
   const createUser = async (userData) => {
     const url = `${apiBaseUrl}/api/user/register`;
@@ -37,6 +53,7 @@ export default function UserProvider({ children }) {
       });
       const user = response.data.user;
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
       console.log("Status Code:", response.status);
       navigate("/");
     } catch (error) {
@@ -58,14 +75,21 @@ export default function UserProvider({ children }) {
       const user = response.data.user;
       setUser(user);
       localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
       console.log("Status Code:", response.status);
       navigate("/");
+      return { success: true };
     } catch (error) {
       if (error.response) {
         console.error("Server Error Data:", error.response.data);
         console.error("Server Status:", error.response.status);
+        return {
+          success: false,
+          error: error.response.data.error || "Login failed",
+        };
       } else {
         console.error("Network Error:", error.message);
+        return { success: false, error: error.message };
       }
     }
   };
@@ -73,6 +97,8 @@ export default function UserProvider({ children }) {
   function logout() {
     setUser(null);
     setDropdownOpen(false);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
   }
   return (
     <UserContext.Provider

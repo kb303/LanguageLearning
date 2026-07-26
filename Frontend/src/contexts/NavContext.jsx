@@ -8,6 +8,7 @@ export function NavProvider({ children }) {
   const [loginModalOpen, setloginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [createListModalOpen, setCreateListModalOpen] = useState(false);
 
   const navTabs = [
     { id: "home", label: "홈페이지 Home", link: "/" },
@@ -29,6 +30,8 @@ export function NavProvider({ children }) {
         setRegisterModalOpen,
         dropdownOpen,
         setDropdownOpen,
+        createListModalOpen,
+        setCreateListModalOpen,
       }}
     >
       {children}
