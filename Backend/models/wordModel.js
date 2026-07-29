@@ -10,4 +10,4 @@ const wordSchema = new Schema({
   characters: [{ type: String, trim: true }],
 });
 
-module.exports = mongoose.model("word", wordSchema);
+module.exports = mongoose.model("Word", wordSchema);

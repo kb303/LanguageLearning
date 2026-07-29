@@ -39,7 +39,9 @@ const userRoutes = require("./routes/userAuthRoutes");
 const wordRoutes = require("./routes/wordRoutes");
 const charRoutes = require("./routes/characterRoutes");
 const listRoutes = require("./routes/listRoutes");
+const grammarRoutes = require("./routes/grammarRoutes");
 
+app.use("/api/grammar", grammarRoutes);
 app.use("/api/list", listRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/word", wordRoutes);

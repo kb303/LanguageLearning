@@ -33,13 +33,13 @@ const createList = async (listData, userId) => {
   }
 };
 
-const updateList = async (listId, updatedData, userId) => {
+const removeItemFromList = async (listId, wordId, userId) => {
   try {
     const updatedList = await List.findOneAndUpdate(
       { _id: listId, user: userId },
-      updatedData,
+      { $pull: { words: wordId } },
       { new: true },
-    );
+    ).populate("words");
     return updatedList;
   } catch (error) {
     console.error(`Error updating list with ID ${listId}:`, error);
@@ -64,6 +64,6 @@ module.exports = {
   getAllLists,
   getListById,
   createList,
-  updateList,
+  removeItemFromList,
   deleteList,
 };

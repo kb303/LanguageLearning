@@ -3,17 +3,17 @@ const router = express.Router();
 const { authenticateToken } = require("../middleware/userAuthMiddleware");
 
 const {
-  getLists,
+  fetchAllLists,
   getList,
   createNewList,
-  updateExistingList,
+  removeItemFromExistingList,
   deleteExistingList,
 } = require("../controllers/listController");
 
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
-    const lists = await getLists(userId);
+    const lists = await fetchAllLists(userId);
     res.status(200).json(lists);
   } catch (error) {
     if (error.message === "Unauthorized") {
@@ -48,11 +48,15 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
-router.put("/update", authenticateToken, async (req, res) => {
-  const { listId, ...updatedData } = req.body;
+router.put("/remove", authenticateToken, async (req, res) => {
+  const { wordId, listId } = req.body;
   const userId = req.user.id;
   try {
-    const updatedList = await updateExistingList(listId, updatedData, userId);
+    const updatedList = await removeItemFromExistingList(
+      listId,
+      wordId,
+      userId,
+    );
     if (!updatedList) {
       return res.status(404).json({ error: "List not found" });
     }

@@ -12,14 +12,7 @@ import { WordContext } from "../contexts/WordContext";
 import { UserContext } from "../contexts/UserContext";
 
 export default function PracticePage() {
-  const {
-    createList,
-    deleteWordFromList,
-    deleteList,
-    loadAllLists,
-    listModalOpen,
-    setListModalOpen,
-  } = useContext(WordContext);
+  const { deleteList, loadAllLists } = useContext(WordContext);
   const { user } = useContext(UserContext);
 
   const [creating, setCreating] = useState(false);
@@ -37,6 +30,15 @@ export default function PracticePage() {
   const handleDeleteList = async (listId) => {
     await deleteList(listId);
     refreshLists();
+  };
+
+  const handleListUpdated = (updatedList) => {
+    setLists((currentLists) =>
+      currentLists.map((list) =>
+        list._id === updatedList._id ? updatedList : list,
+      ),
+    );
+    setQuizList(updatedList);
   };
 
   const refreshLists = async () => {
@@ -127,6 +129,7 @@ export default function PracticePage() {
             list={quizList}
             open={true}
             onClose={() => setQuizList(null)}
+            onListUpdated={handleListUpdated}
           />
         )}
 

@@ -13,7 +13,7 @@ export const UserContext = createContext();
 
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const { setDropdownOpen } = useContext(NavContext);
+  const { setDropdownOpen, setActiveTab } = useContext(NavContext);
 
   const navigate = useNavigate();
   // In development, make direct requests to backend; in production use relative paths
@@ -55,7 +55,8 @@ export default function UserProvider({ children }) {
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
       console.log("Status Code:", response.status);
-      navigate("/");
+      navigate("/quiz");
+      setActiveTab("quiz");
     } catch (error) {
       if (error.response) {
         console.error("Server Error Data:", error.response.data);
@@ -77,7 +78,9 @@ export default function UserProvider({ children }) {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       console.log("Status Code:", response.status);
-      navigate("/");
+      navigate("/quiz");
+      setActiveTab("quiz");
+
       return { success: true };
     } catch (error) {
       if (error.response) {
@@ -99,6 +102,8 @@ export default function UserProvider({ children }) {
     setDropdownOpen(false);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
+    setActiveTab("home");
+    navigate("/");
   }
   return (
     <UserContext.Provider

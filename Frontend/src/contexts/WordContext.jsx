@@ -95,17 +95,15 @@ export default function WordProvider({ children }) {
         localStorage.removeItem("accessToken");
         return [];
       }
-      console.error("Failed to load lists", error);
-      return [];
     }
   };
 
-  const deleteWordFromList = async (newList, listId) => {
-    const url = `${apiBaseUrl}/api/list/${listId}`;
+  const deleteWordFromList = async (listId, wordId) => {
+    const url = `${apiBaseUrl}/api/list/remove`;
     try {
       const response = await axios.put(
         url,
-        { list: newList },
+        { wordId, listId },
         { headers: getHeaders() },
       );
       return response.data;
@@ -136,6 +134,18 @@ export default function WordProvider({ children }) {
     }
   };
 
+  const getGrammar = async () => {
+    const url = `${apiBaseUrl}/api/grammar/allgrammar`;
+    try {
+      const response = await axios.get(url);
+      const grammar = response.data ?? [];
+      return grammar;
+    } catch (error) {
+      console.error("Failed to load grammar data", error);
+      return [];
+    }
+  };
+
   return (
     <WordContext.Provider
       value={{
@@ -148,6 +158,7 @@ export default function WordProvider({ children }) {
         deleteList,
         listModalOpen,
         setListModalOpen,
+        getGrammar,
       }}
     >
       {children}

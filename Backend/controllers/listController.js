@@ -2,11 +2,11 @@ const {
   getAllLists,
   getListById,
   createList,
-  updateList,
+  removeItemFromList,
   deleteList,
 } = require("../services/listServices");
 
-const getLists = async (userId) => {
+const fetchAllLists = async (userId) => {
   const lists = await getAllLists(userId);
   return lists;
 };
@@ -21,8 +21,8 @@ const createNewList = async (listData, userId) => {
   return newList;
 };
 
-const updateExistingList = async (listId, updatedData, userId) => {
-  const updatedList = await updateList(listId, updatedData, userId);
+const removeItemFromExistingList = async (listId, wordId, userId) => {
+  const updatedList = await removeItemFromList(listId, wordId, userId);
   return updatedList;
 };
 
@@ -32,9 +32,9 @@ const deleteExistingList = async (listId, userId) => {
 };
 
 module.exports = {
-  getLists,
+  fetchAllLists,
   getList,
   createNewList,
-  updateExistingList,
+  removeItemFromExistingList,
   deleteExistingList,
 };
