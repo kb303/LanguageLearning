@@ -1,6 +1,6 @@
 .card-container {
-  width: 300px;
-  height: 400px;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   perspective: 1000px; /* Essential for the 3D depth effect */
   cursor: pointer;
 }

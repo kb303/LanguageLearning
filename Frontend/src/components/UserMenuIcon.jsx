@@ -1,18 +1,20 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { User, ChevronDown, LogIn, LogOut, UserPlus } from "lucide-react";
 import { UserContext } from "../contexts/UserContext";
-import { useContext } from "react";
 import { NavContext } from "../contexts/NavContext";
 
 export default function UserMenuIcon() {
+  const navContext = useContext(NavContext);
+  const userContext = useContext(UserContext);
+
   const {
     setRegisterModalOpen,
     setloginModalOpen,
     setDropdownOpen,
     dropdownOpen,
-  } = useContext(NavContext);
+  } = navContext || {};
   const ref = useRef(null);
-  const { user, logout } = useContext(UserContext);
+  const { user, logout } = userContext || {};
   const initials = user ? user.firstName[0] + user.lastName[0] : "";
 
   useEffect(() => {

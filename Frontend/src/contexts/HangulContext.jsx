@@ -16,8 +16,9 @@ const loadChars = async (apiBaseUrl) => {
 };
 
 export function HangulProvider({ children }) {
+  // In development, make direct requests to backend; in production use relative paths
   const apiBaseUrl =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+    import.meta.env.MODE === "production" ? "" : "http://localhost:3000";
 
   useEffect(() => {
     const fetchChars = async () => {

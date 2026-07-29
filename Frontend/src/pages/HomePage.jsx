@@ -8,12 +8,14 @@ import { motion } from "framer-motion";
 import { Star, BookOpen, Zap, Users, Brain, Award } from "lucide-react";
 import CTAButton from "../components/CTAButton";
 import { NavContext } from "../contexts/NavContext";
+import { UserContext } from "../contexts/UserContext";
 import LoginModal from "../components/LoginModal";
 import RegisterModal from "../components/RegisterModal";
 
 export default function HomePage() {
   const { setloginModalOpen, loginModalOpen } = useContext(NavContext);
   const { registerModalOpen, setRegisterModalOpen } = useContext(NavContext);
+  const { user } = useContext(UserContext);
 
   const openLoginModal = (e) => {
     setloginModalOpen(true);
@@ -100,14 +102,16 @@ export default function HomePage() {
               natural conversation. Structured lessons, vocabulary cards, and
               instant quizzes.
             </p>
-            <div className="flex flex-wrap gap-3 mb-10">
-              <CTAButton
-                label="Login"
-                primary={false}
-                buttonClick={openLoginModal}
-              />
-              <CTAButton label="Sign Up" buttonClick={openRegisterModal} />
-            </div>
+            {!user && (
+              <div className="flex flex-wrap gap-3 mb-10">
+                <CTAButton
+                  label="Login"
+                  primary={false}
+                  buttonClick={openLoginModal}
+                />
+                <CTAButton label="Sign Up" buttonClick={openRegisterModal} />
+              </div>
+            )}
           </motion.div>
 
           {/* Floating character grid */}

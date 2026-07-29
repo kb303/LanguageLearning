@@ -6,13 +6,19 @@ import { UserContext } from "../contexts/UserContext";
 export default function LoginModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { setloginModalOpen } = useContext(NavContext);
   const { loginUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser({ email, password });
-    setloginModalOpen(false);
+    setError("");
+    const result = await loginUser({ email, password });
+    if (result.success) {
+      setloginModalOpen(false);
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
@@ -27,6 +33,12 @@ export default function LoginModal() {
             <X className="w-5 h-5" />
           </button>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-destructive/10 border border-destructive text-destructive rounded-lg text-sm font-medium">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
